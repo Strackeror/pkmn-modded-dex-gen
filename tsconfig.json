@@ -1,0 +1,9 @@
+{
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "target": "ES2022",
+    "outDir": "js",
+    "moduleResolution": "nodenext",
+    "sourceMap": true
+  }
+}
