@@ -2,6 +2,7 @@ import { AbilityData, Dex, FormatData, ModData, MoveData, SpeciesData } from "@p
 import * as ps from "process";
 import * as fs from "fs";
 import { Generations } from "@pkmn/data";
+import { patch } from "./patch";
 
 function diffedSet<T extends { inherit?: boolean; isNonstandard?: string }>(
   base: { [id: string]: T },
@@ -112,6 +113,7 @@ let data: ModData = {
   Moves: diffedMoves,
   Learnsets: learnsets,
 }
+patch(data)
 
 let outputFile = `
 import { ModData } from '@pkmn/dex';
