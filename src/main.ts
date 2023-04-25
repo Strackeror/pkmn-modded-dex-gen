@@ -122,4 +122,4 @@ export let Data: ModData = ${tsStringify(data)}
 `
 
 fs.writeFileSync("out/mod-data.ts", outputFile);
-fs.writeFileSync("out/mod-data.json", JSON.stringify(data));
+fs.writeFileSync("out/mod-data.json", JSON.stringify(data, undefined, 2));
