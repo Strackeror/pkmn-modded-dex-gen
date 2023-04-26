@@ -1,7 +1,5 @@
-import { ModData, toID } from "@pkmn/dex";
-
+import { ModData } from "@pkmn/dex";
 export function patch(data: ModData) {
-  data.FormatsData = { ...data.FormatsData };
   for (let specieName in data.Species) {
     data.FormatsData[specieName] = {
       inherit: true,
@@ -14,7 +12,6 @@ export function patch(data: ModData) {
     "Greatly boosts the Attack stat by 50% for a 20%\naccuracy drop on most Physical moves.";
 
   // Typechart fixes
-
   data.Types = {
     ice: {
       inherit: true,
@@ -147,8 +144,25 @@ export function patch(data: ModData) {
     "rockblast",
   ];
 
-  for (let move of bullet_moves) {
-    if (data.Moves[move].flags) data.Moves[move].flags.bullet = 1;
+  for (let moveId of bullet_moves) {
+    let move = data.Moves[moveId];
+    move.flags = { ...move.flags, bullet: 1 };
+  }
+
+  // Bite tag
+  let bite_moves = [
+    "jaggedfangs",
+    "crunch",
+    "psychicfangs",
+    "poisonfang",
+    "firefang",
+    "icefang",
+    "thunderfang",
+  ];
+
+  for (let moveId of bite_moves) {
+    let move = data.Moves[moveId];
+    move.flags = { ...move.flags, bite: 1 };
   }
 
   // Couple of cases where the base forme should instead show another forme
