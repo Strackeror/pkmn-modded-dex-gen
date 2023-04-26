@@ -1,4 +1,4 @@
-import { AbilityData, Dex, ModData, MoveData, SpeciesData } from "@pkmn/dex";
+import { AbilityData, Dex, Learnset, ModData, MoveData, SpeciesData } from "@pkmn/dex";
 import { DeepPartial } from "@pkmn/dex-types"
 import * as ps from "process";
 import * as fs from "fs";
@@ -66,7 +66,8 @@ let newData: ModData = {
 patch(newData)
 
 let modData: ModData = {
-  FormatsData: newData.FormatsData
+  FormatsData: newData.FormatsData,
+  Learnsets: newData.Learnsets,
 }
 
 let baseSpecies = Object.fromEntries(
@@ -93,10 +94,10 @@ for (let move in baseMoves) {
 let baseAbilities = Object.fromEntries(
   [...baseDex.abilities].map((s) => [s.id, s])
 );
-let diffedAbilities = diffedSet<AbilityData>(baseAbilities, newData.Abilities);
+modData.Abilities = diffedSet<AbilityData>(baseAbilities, newData.Abilities);
 for (let ability in baseAbilities) {
-  if (!diffedAbilities[ability]) {
-    diffedAbilities[ability] = {
+  if (!newData.Abilities[ability]) {
+    modData.Abilities[ability] = {
       inherit: true,
       isNonstandard: "Unobtainable",
     };
