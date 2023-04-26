@@ -68,6 +68,9 @@ patch(newData)
 let modData: ModData = {
   FormatsData: newData.FormatsData,
   Learnsets: newData.Learnsets,
+  Types: newData.Types,
+  Aliases: newData.Aliases,
+  Items: newData.Items,
 }
 
 let baseSpecies = Object.fromEntries(
