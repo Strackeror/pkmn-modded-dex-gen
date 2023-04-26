@@ -1,4 +1,4 @@
-import { BoostsTable, ModData, MoveData } from "@pkmn/dex";
+import { ModData, toID } from "@pkmn/dex";
 
 export function patch(data: ModData) {
   data.FormatsData = { ...data.FormatsData };
@@ -119,6 +119,36 @@ export function patch(data: ModData) {
     if (move.pp <= 3) {
       move.noPPBoosts = true;
     }
+  }
+
+  // Bullet Tag
+  let bullet_moves = [
+    "triplecannonade",
+    "bugbomber",
+    "featherball",
+    "scumshot",
+    "magneticburst",
+    "sludgeshot",
+    "mudbomb",
+    "zapcannon",
+    "rockwrecker",
+    "electroball",
+    "gyroball",
+    "shadowball",
+    "energyball",
+    "sludgebomb",
+    "focusblast",
+    "aurasphere",
+    "searingshot",
+    "weatherball",
+    "seedbomb",
+    "iceball",
+    "bulletseed",
+    "rockblast",
+  ];
+
+  for (let move of bullet_moves) {
+    if (data.Moves[move].flags) data.Moves[move].flags.bullet = 1;
   }
 
   // Couple of cases where the base forme should instead show another forme
