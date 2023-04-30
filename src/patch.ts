@@ -116,6 +116,10 @@ export function patch(data: ModData) {
     if (move.pp <= 3) {
       move.noPPBoosts = true;
     }
+
+    if (move.critRatio >= 6) {
+      move.willCrit = true;
+    }
   }
 
   // Bullet Tag
@@ -148,6 +152,21 @@ export function patch(data: ModData) {
     let move = data.Moves[moveId];
     move.flags = { ...move.flags, bullet: 1 };
   }
+  
+  // Pulse tag
+  let pulse_moves = [
+    "aurasphere",
+    "darkpulse",
+    "waterpulse",
+    "healpulse",
+    "dragonpulse",
+    "torrentialpulse",
+  ];
+  for (let moveId of pulse_moves) {
+    let move = data.Moves[moveId];
+    move.flags = { ...move.flags, pulse: 1 };
+  }
+
 
   // Bite tag
   let bite_moves = [
@@ -159,6 +178,7 @@ export function patch(data: ModData) {
     "icefang",
     "thunderfang",
   ];
+
 
   for (let moveId of bite_moves) {
     let move = data.Moves[moveId];
