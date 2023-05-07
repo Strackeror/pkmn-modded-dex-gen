@@ -7,7 +7,8 @@ import { patch } from "./patch";
 
 function diffedSet<T extends {inherit?: boolean}>(
   base: { [id: string]: T },
-  mod: { [id: string]: DeepPartial<T> }
+  mod: { [id: string]: DeepPartial<T> },
+  nullInherits: (keyof DeepPartial<T>)[] = [],
 ): { [id: string]: DeepPartial<T> } {
   let diffedData: { [id: string]: DeepPartial<T> } = {};
 
@@ -25,6 +26,12 @@ function diffedSet<T extends {inherit?: boolean}>(
       if (JSON.stringify(baseData[key]) !== JSON.stringify(newData[key])) {
         modified = true;
         diffed[key] = newData[key];
+      }
+    }
+
+    for (let key of nullInherits) {
+      if (key in baseData && !(key in newData)) {
+        diffed[key] = null
       }
     }
 
@@ -76,7 +83,13 @@ let modData: ModData = {
 let baseSpecies = Object.fromEntries(
   [...baseDex.species].map((s) => [s.id, s])
 );
-modData.Species = diffedSet<SpeciesData>(baseSpecies, newData.Species);
+modData.Species = diffedSet<SpeciesData>(baseSpecies, newData.Species, [
+  "evoItem",
+  "evoCondition",
+  "evoLevel",
+  "evoMove",
+  "evoType",
+]);
 for (let name in baseSpecies) {
   if (!(name in newData.Species)) {
     modData.FormatsData[name] = { inherit: true, isNonstandard: "Unobtainable" };
