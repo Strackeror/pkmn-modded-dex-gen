@@ -272,7 +272,7 @@ export function patch(data: ModData) {
   ];
 
   for (let forme of formes) {
-    data.Learnsets[forme] = {};
+    data.Learnsets[forme] = { learnset: null };
   }
 
   let unusables = [
