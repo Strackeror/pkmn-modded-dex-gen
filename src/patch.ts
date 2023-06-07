@@ -339,4 +339,7 @@ export function patch(data: ModData) {
 
   // Porygon-Z evo loop
   data.Species["porygonz"].evos = [];
+
+  // Floette Eternal
+  data.FormatsData["floetteeternal"].isNonstandard = null;
 }
