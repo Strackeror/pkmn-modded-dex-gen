@@ -269,6 +269,9 @@ export function patch(data: ModData) {
     "aegislashblade",
     "meloettapirouette",
     "cherrimsunshine",
+    "castformsunny",
+    "castformsnowy",
+    "castformrainy"
   ];
 
   for (let forme of formes) {
